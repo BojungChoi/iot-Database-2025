@@ -133,8 +133,8 @@ IoT 개발자 데이터베이스 저장소
         - 일반 프로그래밍 언어와의 차이점
             - DB에서만 문제를 해결 가능
             - 입출력을 모두 DB에서 테이블로 처리
-            - 컴파일 및 실해은 DBMS가 수행
-    - DML(데이터 조작어) - 검색,삽입, 수정, 삭제
+            - 컴파일 및 실행은 DBMS가 수행
+    - DML(데이터 조작어) - 검색, 삽입, 수정, 삭제
         - SELECT, INSERT, UPDATE, DELETE
     - DDL(데이터 정의어)
         - CREATE, ALTER, DROP
@@ -157,8 +157,95 @@ IoT 개발자 데이터베이스 저장소
 - 쿼리 연습(집계함수부터) : [SQL](./day02/db03_SELECT_집계함수_GROUP%20BY.sql)
 
 ## 3일차
+- Visual Studio Code 에서 MySQL 연동
+    - 확장 > MySQL 검색 > 
+        - Weijan Chen 개인개발자 만든 MySQL 확장도 준수(추천)
+        - Weijan Chen 이개발한 Database Client 설치.
+        - Database Client 는 많은 DB연결이 가능!
+        - Oracle에서 개발한 MySQL Shell for VS Code 를 사용 하지말것(불편-)
+    - Database Client
+        1. 툴바 Database 아이콘 클릭
+        2. Create Connection 클릭
+        3. 정보 입력 > 연결 테스트
+
+            <img src='./image/db002.png' width='600'>
+
+        4. WorkBench 처럼 사용
+
+            <img src='./image/db003.png' width='600'>
+
+
 - SQL 기초
-    - DDL
+    - 기본 데이터형
+        - 데이터베이스에는 엄청 많은 데이형이 존재(데이터의 사이즈 저장용량을 절약하기 위해)
+        - 주요 데이터형
+            - smallint(2 Byte) - 65,535가지(음수포함) 수를 저장(-32768~32766)
+            - **int(4)** - 모든 데이터타입의 기준! 42억 정수(음수)를 저장
+            - Bigint(8) - int 보다 더 큰 수 저장
+            - Float(4) - 소수점 아래 7자리까지 저장
+            - Decimal(5~17 Byte) - Float 보다 더 큰 수 저장
+            - Char(n) - n은 가변(1 ~ 255) **고정길이** 문자열
+                - 주의점!! Char(10) 에 글자를 입력할때 Hello 글자를 입력하면 **'Hello　　　　'** 과 같이 저장!
+            - Varchar(n) - n(1~65535) **가변길이** 문자열
+                - 주의점!! Varchar(10)에 Hello를 입력하면 **'Hello'** 저장됨
+            - Longtext(최대4GB) - 뉴스나 영화스크립트 저장할 때 사용
+            - LongBlob(최대4GB) - mp3, mp4 음악이나 영화 데이터 자체 저장할 때 사용
+            - Date(3) - 2025-02-27 까지 저장하는 타입
+            - DateTime(8) - 2025-02-27 10:46:34 까지 저장하는 타입
+            - JSON(8) - json 타입 데이터를 저장
+    
+    - DDL 중 CREATE
+
+        ```sql
+        CREATE DATABASE 데이터베이스 명
+        [몇가지 사항];
+
+        CREATE 테이블명
+        (
+            컬럼(속성)명 제약사항들,...
+            PRIMARY KEY (컬럼(들))
+            FOREIGN KEY (컬럼(들)) REFERENCES 테이블명 (컬럼(들)) ON 제약사항
+        ex- FOREIGN KEY (custid) REFERENCES NewCustomer(custid) ON DELETE CASCADE
+        )
+        ```
+
+        - 테이블 생성 후 확인
+            1. 메뉴 Database > Reverse Engineer(DB를 ERD로 변경) 클릭
+            2. 연결은 패스
+            3. Select Schemas to RE 에서 특정 DB를 체크
+            4. Excute 버튼을 클릭
+            5. ERD을 확인
+
+            <img src='./image/db004.png>' width='600'>
+
+
+    - DDL중 ALTER
+        ```sql
+        ALTER DATABASE 데이터베이스 명
+        [몇가지 사항];
+
+        ALTER 테이블명
+        
+            [ADD 속성명 데이터타입]
+            [DROP COLUMN 속성명]
+            [ALTER COLUMN 속성명 데이터타입]
+            ...
+        ```
+        
+        
+
+
+    - DDL중 DROP
+        ```sql
+        DROP[DATABASE|TABLE|INDEX...] 개체명
+        ```
+
     - DML 중 INSERT, UPDATE, DELETE
 
 - SQL 고급
+    -  내장함수, NULL 아무리생각해도 NOT NULL을..
+
+
+## 4일차
+- SQL고급
+    - 행번호출력...

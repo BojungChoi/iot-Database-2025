@@ -216,7 +216,7 @@ IoT 개발자 데이터베이스 저장소
             4. Excute 버튼을 클릭
             5. ERD을 확인
 
-            <img src='./image/db004.png>' width='600'>
+            <img src='./image/db004.png' width='600'>
 
 
     - DDL중 ALTER

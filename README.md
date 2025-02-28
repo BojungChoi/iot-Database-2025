@@ -175,7 +175,7 @@ IoT 개발자 데이터베이스 저장소
             <img src='./image/db003.png' width='600'>
 
 
-- SQL 기초
+- #### SQL 기초
     - 기본 데이터형
         - 데이터베이스에는 엄청 많은 데이형이 존재(데이터의 사이즈 저장용량을 절약하기 위해)
         - 주요 데이터형
@@ -194,7 +194,7 @@ IoT 개발자 데이터베이스 저장소
             - DateTime(8) - 2025-02-27 10:46:34 까지 저장하는 타입
             - JSON(8) - json 타입 데이터를 저장
     
-    - DDL 중 CREATE
+    - DDL 중 CREATE : [SQL](./day03/db01_CREATE_쿼리.sql)
 
         ```sql
         CREATE DATABASE 데이터베이스 명
@@ -208,6 +208,7 @@ IoT 개발자 데이터베이스 저장소
         ex- FOREIGN KEY (custid) REFERENCES NewCustomer(custid) ON DELETE CASCADE
         )
         ```
+        - DDL 문은 WorkBench에서 마우스 클릭으로 많이 사용(개발자에게 사용빈도가 낮음)
 
         - 테이블 생성 후 확인
             1. 메뉴 Database > Reverse Engineer(DB를 ERD로 변경) 클릭
@@ -217,7 +218,6 @@ IoT 개발자 데이터베이스 저장소
             5. ERD을 확인
 
             <img src='./image/db004.png' width='600'>
-
 
     - DDL중 ALTER
         ```sql
@@ -231,21 +231,51 @@ IoT 개발자 데이터베이스 저장소
             [ALTER COLUMN 속성명 데이터타입]
             ...
         ```
-        
-        
-
 
     - DDL중 DROP
         ```sql
         DROP[DATABASE|TABLE|INDEX...] 개체명
         ```
+    -   **테이블 삭제. 복구 안됨! 백업 필수!**
 
-    - DML 중 INSERT, UPDATE, DELETE
+    - DML 중 INSERT, UPDATE, DELETE : [SQL](./day03/db02_dml_쿼리.sql)
+        ```sql
+        -- insert 삽입
+        INSERT INTO 테이블명[(컬럼리스트)]
+        VALUES (값리스트);
 
-- SQL 고급
-    -  내장함수, NULL 아무리생각해도 NOT NULL을..
+        -- 다른테이블의 데이터 가져오기
+        INSERT INTO 테이블명[(컬럼리스트)]
+        SELECT 컬럼리스트 FROM 테이블명
+        [WHERE 조건]
+
+        -- update 수정
+        UPDATE TABLE 테이블명 SET
+                     속성=값
+                  [, 속성=값]
+               WHERE 조건;
+
+        -- DELETE 삭제
+        DELETE FROM 테이블명
+         WHERE 조건;
+
+        ```
+        - INSERT 데이터 삽입, 새로운 데이터 생성
+        - UPDATE 데이터 수정 기존 데이터를 변경
+        - DELETE 데이터 삭제
+        - **UPDATE와 DELETE 는 WHERE 절 없이 사용하면 사고남 문제발생 소지**
+            - 트랜잭션을 사용하지 않으면 복구가 까다로움. 조심할 것
+
+- #### SQL 고급 : [SQL](./day03/db03_SQL_고급.sql)
+    -  내장함수, NULL 아무리생각해도 NOT NULL을
+        - 수학함수, 문자열함수, 날짜함수 등
 
 
 ## 4일차
 - SQL고급
     - 행번호출력...
+
+- SubQuery 고급
+    - Where 절
+    - Select 절
+    - From 절

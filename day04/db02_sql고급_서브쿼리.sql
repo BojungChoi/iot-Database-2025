@@ -40,5 +40,17 @@ SELECT SUM(saleprice) as '총판매액'
 				 FROM Customer
 				WHERE address LIKE '%대한민국%'
 				  AND custid = o.custid);
+                  
+-- 추가 . 최신방법(서브쿼리에 두 가지 컬럼을 비교하는 법) - 튜플(Python과 동일)
+-- 2010년 중반이후부터 사용 예상
+SELECT *
+  FROM Orders
+ WHERE (custid, orderid) IN (SELECT custid, orderid
+							   FROM Orders
+							  WHERE custid = 2);
 
 
+-- SELECT 서브쿼리
+-- 4-17 : 고객별 판매액을 나타내시오.(고객이름과 고객별 판매액을 출력할것)
+SELECT *
+  FROM Orders;

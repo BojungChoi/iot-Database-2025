@@ -50,7 +50,37 @@ SELECT *
 							  WHERE custid = 2);
 
 
--- SELECT 서브쿼리
 -- 4-17 : 고객별 판매액을 나타내시오.(고객이름과 고객별 판매액을 출력할것)
-SELECT *
-  FROM Orders;
+-- SELECT 서브쿼리. 스칼라값(단일행,단일열) 한 컬럼에 데이터1개
+
+SELECT o.custid
+	 , (SELECT name FROM Customer WHERE custid = o.custid) AS 고객명
+	 , SUM(saleprice) '판매액'
+  FROM Orders AS o
+ GROUP BY o.custid;
+
+SELECT name FROM Customer WHERE custid = 2;
+
+-- FROM절 서브쿼리, 인라인뷰
+-- 4-19 고객번호가 2 이하인 고객의 판매액을 나타내시오.(고객이름, 고객별 판매액 출력)
+-- 1. 이 테이블이 하나의 가상의 테이블이 됨
+SELECT custid
+	 , name
+  FROM Customer
+ WHERE custid <= 2;
+
+-- 2. 위 가상테이블을 cs라고 이름 짓고, FROM절에 넣어줌.
+SELECT cs.*
+  FROM (SELECT custid
+			 , name
+		  FROM Customer
+		 WHERE custid <= 2) AS cs;
+ 
+-- 3. 가상테이블 cs와 Orders 테이블을 조인
+SELECT cs.name, SUM(o.saleprice) '구매액'
+  FROM (SELECT custid
+			 , name
+		  FROM Customer
+		 WHERE custid <= 2) AS cs, Orders AS o
+ WHERE cs.custid = o.custid
+ GROUP BY cs.name;
